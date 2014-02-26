@@ -3,39 +3,11 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Job_Posting</title>
-<style type="text/css">
-	body { 
-		font-family: "Times New Roman", Times, serif;
-		text-align: center;
-		padding: 0 0 20px;
-	}
-	
-	h1 {
-		text-indent: -9999em;
-	}
-	
-	h2 {
-		font-size: 24px;
-		font-weight: bold;
-	}
-	#page {
-		width: 950px;
-		margin: 0 auto;
-	}
-	.jobs {
-		width: 600px;
-	}
-	#content {
-		text-align: left;
-		margin: 0 auto;
-	}
-	#content.error {
-		text-align: center;
-	}
-</style>
+<title>Statistics Jobs</title>
+<link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
 <div id="page">
+<div class="wrapper">
 <h1>Statistics Jobs</h1>

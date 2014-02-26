@@ -23,15 +23,14 @@ Installation
 
 Changelog
 ------------------
+0.1.0 - Fixes table styles, date formats, and headers
 0.0.1 - Initial commit
 
 
 To-Do List
 ------------------
-- Index: Fix table styles
 - Index: Add ability to navigate pages
-- Jobs: Fix date format
-- Jobs: Fix header width styles
+- Jobs: Fix headers and footers
 - Form: Format body content with bold text
 - Wishlist Form: Add company and title as separate post meta
 

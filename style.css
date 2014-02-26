@@ -1,0 +1,71 @@
+body { 
+	background-color: #E6E6E6;
+	font-family: "Times New Roman", Times, serif;
+	text-align: center;
+	padding: 0 0 20px;
+}
+
+h1 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #1A37AC;
+	font-style: italic;
+	font-size: 2em;
+}
+
+h2 {
+	font-size: 24px;
+	font-weight: bold;
+}
+a:link {
+	text-decoration: none;
+	color: #1A37AC;
+}
+a:visited {
+	text-decoration: none;
+	color: #777;
+}
+a:hover,
+a:active {
+	color: #FF0000;
+}
+
+#page {
+	width: 950px;
+	margin: 0 auto;
+	background-color: #fff;
+}
+.wrapper {
+	padding: 30px;
+}
+.jobs {
+	width: 600px;
+}
+#content {
+	text-align: left;
+	margin: 0 auto;
+}
+#content.error {
+	text-align: center;
+}
+table.joblist {
+	width: 100%;
+	border-collapse: collapse;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+}
+table.joblist th,
+table.joblist td {
+	border: 2px solid #999;
+	padding: 0.3em 0.5em;
+	text-align: left;
+}
+table.joblist th {
+	background-color: #ddd;
+}
+table.joblist th.employer,
+table.joblist th.position {
+	width: 42%;
+}
+table.joblist th.date {
+	width: 15%;
+}

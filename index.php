@@ -3,8 +3,17 @@
 	include 'header.php';
 	
 	// Request post
-	$request_url = API_URL . 'get_category_posts/?category_slug=jobs';
+	//$request_url = API_URL . 'get_category_posts/?category_slug=jobs';
+	$request_url = API_URL . 'get_category_posts/?';
+	$params = array('category_slug' => 'jobs');
+	if( is_valid_page($_GET['page']) ){
+		$params['page'] = $_GET['page'];
+	}
+	$request_url .= http_build_query($params);
+	FB::info($request_url, 'request_url');
+	
 	$data = get_job_data( $request_url );
+	FB::info($data, 'data');
 	
 	// Check status and display content
 	if( $data->status == 'ok' ){

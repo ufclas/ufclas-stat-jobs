@@ -40,14 +40,22 @@ function get_post( $post ) {
 function display_posts_tables($posts){
 	foreach($posts as $heading => $post_data){
 		echo '<h2>' . $heading . '</h2>';
-		echo '<table class="joblist"><tr><th>University/Company</th><th>Position Title</th><th>Date</th></tr>';
+		echo '<table class="joblist"><tr><th class="employer">University/Company</th><th class="position">Position Title</th><th class="date">Date</th></tr>';
 		foreach($post_data as $post){
 			echo '<tr><td><a href="job.php?id=' . $post['id'] . '">' . $post['employer'] . '</a></td>';
-			echo "<td>{$post['position']}</td>";
-			echo "<td>{$post['date']}</td></tr>";
+			echo '<td>' . $post['position'] . '</td>';
+			echo '<td>' . $post['date'] . '</td></tr>';
 		}
 		echo '</table>';
 	}
+}
+
+function display_pages($posts){ ?>
+	
+	<ul>
+		<li><a href=""></a></li>
+	</ul>
+<?php
 }
 
 ?>
