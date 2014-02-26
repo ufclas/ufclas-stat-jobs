@@ -24,11 +24,11 @@ function get_post( $post ) {
 	$employer = trim($title[0]);
 	$position = trim($title[1]);
 	$date = Datetime::createFromFormat( 'Y-m-d H:i:s', $post->date );
-	$date_publish = $date->format('Y-m-d');
+	$date_publish = $date->format('m/d/Y');
 	$date_heading = $date->format('F Y');
 	
 	$post_item = array(
-		'employer' => $employer,
+		'employer' => iconv('UTF-8', 'ISO-8859-15//TRANSLIT', $employer),
 		'position' => $position,
 		'date' => $date_publish,
 		'heading' => $date_heading,
