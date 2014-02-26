@@ -16,12 +16,12 @@ h2 {
 	font-size: 24px;
 	font-weight: bold;
 }
-a:link {
+a:link,
+a:visited {
 	text-decoration: none;
 	color: #1A37AC;
 }
-a:visited {
-	text-decoration: none;
+#content a:visited {
 	color: #777;
 }
 a:hover,
@@ -68,4 +68,21 @@ table.joblist th.position {
 }
 table.joblist th.date {
 	width: 15%;
+}
+footer {
+	display: block;
+	padding-top: 1em;
+}
+#nav-pages li {
+	display: inline-block;
+	list-style: none;
+	padding: 0 0.5em;
+	border-left: 1px solid #666;
+}
+#nav-pages li a {
+	display: block;
+	padding: 0 0.5em;
+}
+#nav-pages li:first-child {
+	border: none;
 }

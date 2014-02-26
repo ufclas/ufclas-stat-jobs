@@ -50,12 +50,14 @@ function display_posts_tables($posts){
 	}
 }
 
-function display_pages($posts){ ?>
-	
-	<ul>
-		<li><a href=""></a></li>
-	</ul>
-<?php
+function display_pages($num_pages){ 
+	$current = (empty($_GET['page']))? 1:$_GET['page'];
+	echo '<ul id="nav-pages">';
+	for($i=1; $i<=$num_pages; $i++){
+		$label = ($i == $current)? "{$i}":"<a href='?page={$i}'>{$i}</a>";
+		echo "<li>{$label}</li>";
+	}
+	echo '</ul>';
 }
 
 ?>
