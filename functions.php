@@ -1,14 +1,15 @@
 <?php
 
-require 'lib/FirePHPCore/fb.php';
+//require 'lib/FirePHPCore/fb.php';
 
-define('API_URL', 'http://stat.wpmu.example.com/api/');
+define('API_URL', 'http://test.clas.ufl.edu/stat/api/');
+//define('API_URL', 'http://test.example.com/stat/api/');
 
 function get_job_data( $request ){
 	$session = curl_init($request);
 	curl_setopt($session, CURLOPT_HEADER, false); 
 	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-	$response = curl_exec($session); 
+	$response = curl_exec($session);
 	curl_close($session); 
 	
 	return json_decode($response);
