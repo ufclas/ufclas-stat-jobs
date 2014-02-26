@@ -1,14 +1,12 @@
 <?php
 
-require 'lib/FirePHPCore/fb.php';
-
-define('API_URL', 'http://stat.wpmu.example.com/api/');
+define('API_URL', 'http://test.clas.ufl.edu/stat/api/');
 
 function get_job_data( $request ){
 	$session = curl_init($request);
 	curl_setopt($session, CURLOPT_HEADER, false); 
 	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-	$response = curl_exec($session); 
+	$response = curl_exec($session);
 	curl_close($session); 
 	
 	return json_decode($response);
@@ -23,11 +21,11 @@ function get_post( $post ) {
 	$employer = trim($title[0]);
 	$position = trim($title[1]);
 	$date = Datetime::createFromFormat( 'Y-m-d H:i:s', $post->date );
-	$date_publish = $date->format('Y-m-d');
+	$date_publish = $date->format('m/d/Y');
 	$date_heading = $date->format('F Y');
 	
 	$post_item = array(
-		'employer' => $employer,
+		'employer' => iconv('UTF-8', 'ISO-8859-15//TRANSLIT', $employer),
 		'position' => $position,
 		'date' => $date_publish,
 		'heading' => $date_heading,
