@@ -1,5 +1,6 @@
-<?php display_pages( $post ); ?>
-
+<footer>
+	<?php display_pages( $pages ); ?>
+</footer>
 </div>
 </div>
 </body>

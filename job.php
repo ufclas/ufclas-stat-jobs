@@ -12,7 +12,6 @@
 		
 		// Check status and display content
 		if( $data->status == 'ok' ){
-			FB::info($data);
 			$post = get_post( $data->post );
 ?>
 	<h2><?php echo $post['date']; ?><br><?php echo $post['position'] . '<br />' . $post['employer']; ?></h2>
