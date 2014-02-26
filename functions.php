@@ -1,5 +1,9 @@
 <?php
 
+require 'lib/FirePHPCore/fb.php';
+
+define('API_URL', 'http://stat.wpmu.example.com/api/');
+
 function get_job_data( $request ){
 	$session = curl_init($request);
 	curl_setopt($session, CURLOPT_HEADER, false); 
@@ -10,13 +14,40 @@ function get_job_data( $request ){
 	return json_decode($response);
 }
 
-function valid_id( $id ) {
+function is_valid_id( $id ) {
 	return (!empty( $id )) && filter_var($id, FILTER_VALIDATE_INT);
 }
 
-function get_post_date( $date ){
-	$d = Datetime::createFromFormat( 'Y-m-d H:i:s', $date );
-	return $d->format('Y-m-d');
+function get_post( $post ) {
+	$title = explode('&#8211;', $post->title_plain);
+	$employer = trim($title[0]);
+	$position = trim($title[1]);
+	$date = Datetime::createFromFormat( 'Y-m-d H:i:s', $post->date );
+	$date_publish = $date->format('Y-m-d');
+	$date_heading = $date->format('F Y');
+	
+	$post_item = array(
+		'employer' => $employer,
+		'position' => $position,
+		'date' => $date_publish,
+		'heading' => $date_heading,
+		'content' => $post->content,
+		'id' => $post->id
+	);
+	return $post_item;
+}
+
+function display_posts_tables($posts){
+	foreach($posts as $heading => $post_data){
+		echo '<h2>' . $heading . '</h2>';
+		echo '<table class="joblist"><tr><th>University/Company</th><th>Position Title</th><th>Date</th></tr>';
+		foreach($post_data as $post){
+			echo '<tr><td><a href="job.php?id=' . $post['id'] . '">' . $post['employer'] . '</a></td>';
+			echo "<td>{$post['position']}</td>";
+			echo "<td>{$post['date']}</td></tr>";
+		}
+		echo '</table>';
+	}
 }
 
 ?>

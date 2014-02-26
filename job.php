@@ -1,26 +1,22 @@
 <?php 
-	require '../_lib/FirePHPCore/fb.php';
 	include 'functions.php';
-	include('header.php');
+	include 'header.php';
 	
 	$post_id = $_GET['id'];
 	
-	if( valid_id($post_id) ){
+	if( is_valid_id($post_id) ){
 	
 		// Request post
-		$api_url = "http://test.example.com/stat/api/get_post/?post_id=";
-		$request = $api_url . $post_id;
-		$data = get_job_data( $request );
+		$request_url = API_URL . 'get_post/?post_id=' . $post_id;
+		$data = get_job_data( $request_url );
 		
 		// Check status and display content
 		if( $data->status == 'ok' ){
-			$post = $data->post;
-			$post_date = $post->date;
-			$post_title = $post->title; 
-			$post_body = $post->content; 
+			FB::info($data);
+			$post = get_post( $data->post );
 ?>
-	<h2><?php echo $post_date; ?><br><?php echo $post_title; ?></h2>
-	<div id="content" class="jobs"><?php echo $post_body; ?></div>
+	<h2><?php echo $post['date']; ?><br><?php echo $post['position'] . '<br />' . $post['employer']; ?></h2>
+	<div id="content" class="jobs"><?php echo $post['content']; ?></div>
 <?php
 		}
 		else {
@@ -40,5 +36,5 @@
 		<div id="content" class="error">There was an error displaying this page. Please try again later.</div>
 <?php
 	}
-	include('footer.php'); 
+	include 'footer.php'; 
 ?>
