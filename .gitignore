@@ -1,0 +1,6 @@
+_notes/
+_notes/*.xml
+Thumbs.db
+*.svn
+.DS_store
+lib/*
