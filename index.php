@@ -1,36 +1,46 @@
 <?php 
-	include 'functions.php';
-	include 'header.php';
+	// Includes
+	include 'inc/job_post.php';
+	include 'inc/job_list.php';
 	
-	// Request post and page number
-	$request_url = API_URL . 'get_category_posts/?';
-	$params = array('category_slug' => 'jobs');
-	if( is_valid_id($_GET['page']) ){
-		$params['page'] = $_GET['page'];
-	}
-	$request_url .= http_build_query($params);
+	// Initialize list
+	$job_list = new Job_List( array(
+		'request_type' => 'posts',
+		'request_params' => array(
+			'category_name' => 'jobs',
+			'posts_per_page' => '30',
+		),
+	) );
 	
-	$data = get_job_data( $request_url );
-	$pages = $data->pages;
+	// Display header
+	include 'inc/header.php';
+	?>
 	
-	// Check status and display content
-	if( $data->status == 'ok' ){
-				
-		// Group posts by month/year
-		$posts = array();
-		foreach( $data->posts as $post ){
-			$new_post = get_post( $post );
-			$posts[$new_post['heading']][] = $new_post;
+	<p>This is current listing of job announcements related to Statistics. If you have any questions or comments regarding this
+listing, please contact <a href="mailto:jobs@stat.ufl.edu">jobs@stat.ufl.edu</a>. To submit a job for posting please use the <a href="http://forms.stat.ufl.edu/forms/job-announce/">Statistics Job Submission Form</a>.</p>
+	
+	<?php
+	
+	// Get information from the request response
+	$status = $job_list->request_status();
+	
+	if( $status == '200' ){
+		
+		// Make a request for the list of posts
+		$data = $job_list->request_data();
+		
+		if( !empty($data) ){
+			// Create the list of posts from data
+			$job_list->set_posts( $data );
+			
+			// Display the table of job posts
+			$job_list->display();
 		}
-		display_posts_tables($posts);
 	}
 	else {
-		// Status is not 'ok'
-		$post_error = (empty($data->status))? 'Error: Information not found':ucfirst($data->status) . ": " . $data->error;
-?>
-		<h2><?php echo $post_error; ?></h2>
-		<div id="content" class="error">There was an error displaying this page. Please try again later.</div>
-<?php
+		// Request to API failed
+		$job_list->display_error();
 	}
-	include 'footer.php'; 
-?>
+	
+	// Display header
+	include 'inc/footer.php';

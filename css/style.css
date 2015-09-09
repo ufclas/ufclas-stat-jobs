@@ -58,16 +58,17 @@ table.joblist td {
 	border: 2px solid #999;
 	padding: 0.3em 0.5em;
 	text-align: left;
+	vertical-align: top;
 }
 table.joblist th {
 	background-color: #ddd;
 }
 table.joblist th.employer,
 table.joblist th.position {
-	width: 42%;
+	min-width: 43%;
 }
 table.joblist th.date {
-	width: 15%;
+	width: 12%;
 }
 footer {
 	display: block;
@@ -78,11 +79,17 @@ footer {
 	list-style: none;
 	padding: 0 0.5em;
 	border-left: 1px solid #666;
+	font-weight: bold;
 }
 #nav-pages li a {
 	display: block;
 	padding: 0 0.5em;
+	font-weight: normal;
 }
-#nav-pages li:first-child {
+#nav-pages li:first-child,
+#nav-pages li.hidden + li {
 	border: none;
+}
+.hidden {
+	visibility:hidden !important;	
 }

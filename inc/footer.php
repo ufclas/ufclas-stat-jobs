@@ -1,5 +1,5 @@
 <footer>
-	<?php display_pages( $pages ); ?>
+	<?php $job_list->display_pages(); ?>
 </footer>
 </div>
 </div>
