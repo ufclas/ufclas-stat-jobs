@@ -10,10 +10,26 @@ class Job_Post {
 	public $content;
 	
 	function __construct( $post_data ){
-		// Title, employer, position
-		$title = explode('&#8211;', $post_data->title);
-		$employer = trim($title[0]);
-		$position = trim($title[1]);
+        $title = $post_data->title->rendered;
+        $employer = $title;
+        $position = '';
+        
+        /* 
+         * Get employer and position from the title if separator is present
+         */
+        $separators = array('&#8211;', '-');
+        foreach ($separators as $sep){
+            if ( strpos( $title, $sep ) !== false ){
+                
+                $title = explode($sep, $post_data->title->rendered);
+                
+                if ( isset($title[1]) ){
+                    $employer = trim($title[0]);
+                    $position = trim($title[1]);
+                }
+                break;
+            }
+        }
 		
 		// Date and grouping header	
 		$date = Datetime::createFromFormat( 'Y-m-d\TH:i:s', $post_data->date );
@@ -21,12 +37,13 @@ class Job_Post {
 		$date_heading = $date->format('F Y');
 		
 		// Set properties
-		$this->id = $post_data->ID;
+		$this->id = $post_data->id;
+		$this->title = $title;
 		$this->employer = iconv('UTF-8', 'ISO-8859-15//TRANSLIT', $employer);
 		$this->position = iconv('UTF-8', 'ISO-8859-15//TRANSLIT', $position);
 		$this->date = $date_publish;
 		$this->grouping = $date_heading;
-		$this->content = iconv('UTF-8', 'ISO-8859-15//TRANSLIT', $post_data->content);
+		$this->content = $post_data->content->rendered;
 	}
 	
 	public function display(){

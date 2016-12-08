@@ -11,13 +11,13 @@
 	// Display header
 	include 'inc/header.php';
 	
+    // Make a request for the list of posts
+    $data = $job_list->request_data();
+
 	// Get information from the request response
 	$status = $job_list->request_status();
 	
 	if( $status == '200' ){
-		
-		// Make a request for the list of posts
-		$data = $job_list->request_data();
 		
 		if( !empty($data) ){
 			// Create job post

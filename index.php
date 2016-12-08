@@ -8,7 +8,7 @@
 		'request_type' => 'posts',
 		'request_params' => array(
 			'category_name' => 'jobs',
-			'posts_per_page' => '30',
+			'per_page' => '30',
 		),
 	) );
 	
@@ -21,13 +21,14 @@ listing, please contact <a href="mailto:jobs@stat.ufl.edu">jobs@stat.ufl.edu</a>
 	
 	<?php
 	
-	// Get information from the request response
+	
+    // Make a request for the list of posts
+    $data = $job_list->request_data();
+
+    // Get information from the request response
 	$status = $job_list->request_status();
 	
 	if( $status == '200' ){
-		
-		// Make a request for the list of posts
-		$data = $job_list->request_data();
 		
 		if( !empty($data) ){
 			// Create the list of posts from data

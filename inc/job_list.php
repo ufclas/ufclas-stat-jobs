@@ -3,7 +3,7 @@
 class Job_List {
 	
 	// Class Properties
-	public static $api_url = 'http://forms.stat.ufl.edu/wp-json';
+	public static $api_url = 'http://forms.stat.ufl.edu/wp-json/wp/v2';
 	public static $total_pages = 1;
 	public static $app_title = 'Statistics Jobs';
 	
@@ -105,40 +105,35 @@ class Job_List {
 	}
 	
 	/**
-	 * Send a request for headers, set the status code and total pages
+	 * Get the status code
 	 */
 	public function request_status(){
-		
-		// Send request to just get headers, not the body
-		$request = $this->request_url;
-		$session = curl_init($request);
-		curl_setopt($session, CURLOPT_HEADER, true);
-		curl_setopt($session, CURLOPT_NOBODY, true); 
-		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-		$response = curl_exec($session);
-		curl_close($session);
-		
-		// Get the status code from the header
-		$this->set_response_status( $response );
-		
-		// Get the value from the X-WP-TotalPage header
-		$this->set_total_pages( $response );
-		
 		return $this->response_status;
 	}
 	
 	/**
-	 * Send a request for data
+	 * Send a request for data, set the response status and total pages
 	 */
 	public function request_data(){ 
 		$request = $this->request_url;
 		$session = curl_init($request);
-		curl_setopt($session, CURLOPT_HEADER, false); 
+		curl_setopt($session, CURLOPT_HEADER, true); 
 		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($session);
-		curl_close($session); 
-		
-		return json_decode($response);
+        $header_size = curl_getinfo($session, CURLINFO_HEADER_SIZE);
+		curl_close($session);
+        
+        // Parse the request header and body
+        $response_header = substr( $response, 0, $header_size );
+        $response_body = substr( $response, $header_size );
+        
+        // Set the status code from the header
+		$this->set_response_status( $response_header );
+        
+        // Set the value from the X-WP-TotalPage header
+		$this->set_total_pages( $response_header );
+        
+		return json_decode($response_body);
 	}
 	
 	/**
@@ -181,10 +176,11 @@ class Job_List {
 		if( $total_pages > 1 ){		
 			echo '<ul id="nav-pages">';
 			echo '<li class="' . $prev_class . '"><a href="?page=' . ($current_page-1) . '">&laquo;&nbsp;Previous</a></li>';
-			for($i=1; $i<=$total_pages; $i++){
-				$label = ($i == $current_page)? "{$i}":"<a href='?page={$i}'>{$i}</a>";
-				echo "<li>{$label}</li>";
-			}
+			
+            $label = "Page {$current_page} of {$total_pages}";
+            
+            echo "<li><a href='?page={$current_page}'>{$label}</a></li>";
+        
 			echo '<li class="' . $next_class . '"><a href="?page=' . ($current_page+1) . '">Next&nbsp;&raquo;</a></li>';
 			echo '</ul>';
 		}
